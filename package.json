@@ -13,11 +13,24 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.5.3",
     "morgan": "^1.10.0",
     "sequelize": "^6.5.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
+  }, 
+  "nodemonConfig": {
+    "restartable": "rs",
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
+    "delay": "2500",
+    "env": {
+      "NODE_ENV": "development",
+      "PORT": 4000,
+      "ACCESS_TOKEN_SECRET": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+    }
   }
 }

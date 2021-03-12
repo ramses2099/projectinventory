@@ -1,8 +1,13 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+//temp
 const db = require('./models/index');
 const { DataTypes } =require('sequelize');
+//temp
+
+const  loginRouter = require('./routes/loginRouter');
+const customerRouter = require('./routes/customerRouter');
 
 const http = require('http');
 const app = express();
@@ -12,14 +17,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-const Users = require('./models/user');
+const Customers = require('./models/customer');
+
+//routers
+app.use('/api', loginRouter);
+app.use('/api', customerRouter);
+
 
 app.get('*', (req, res) =>{ 
 
-    Users(db.sequelize, DataTypes)
-    .findAll()
-    .then((users)=>{
-        res.status(200).send(users);
+    Customers(db.sequelize, DataTypes)
+    .findAll({
+        where:{
+            id:1
+        }
+    })
+    .then((customers)=>{
+        res.status(200).send(customers);
     });
     
 });
@@ -36,6 +50,7 @@ server.listen(PORT, () => {
     //
     console.log(`Server running in http://localhost:${PORT}`);
 
+   
 });
 
 module.exports = app;
